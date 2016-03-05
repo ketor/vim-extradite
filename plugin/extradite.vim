@@ -256,7 +256,8 @@ function! s:SimpleFileDiff(git_cmd,a,b) abort
   let win = bufwinnr(b:extradite_simplediff_bufnr)
   exe 'keepjumps '.win.'wincmd w'
   setlocal modifiable
-    keepjumps silent normal! gg5dd
+    " keepjumps silent normal! gg5dd
+    keepjumps silent normal! gg
   setlocal nomodifiable
   keepjumps wincmd p
 endfunction
