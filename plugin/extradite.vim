@@ -97,6 +97,11 @@ function! s:ExtraditeLoadCommitData(bang, base_file_name, template_cmd, ...) abo
   let basecmd = escape(call(fugitive#buffer().repo().git_command,cmd,fugitive#buffer().repo()), '%')
   let extradata_cmd = a:template_cmd + ['--pretty=format:%h	%ad', '--', path]
   let extradata_basecmd = call(fugitive#buffer().repo().git_command,extradata_cmd,fugitive#buffer().repo())
+  let extradata_basecmd_len = strlen(extradata_basecmd)
+  let extradata_basecmd_basepath = strpart(extradata_basecmd, extradata_basecmd_len-2, 2)
+  if extradata_basecmd_basepath == "''"
+    let extradata_basecmd = strpart(extradata_basecmd, 0, extradata_basecmd_len-1).".'"
+  endif
 
   let log_file = a:base_file_name.'.extradite'
   " put the commit IDs in a separate file -- the user doesn't have to know
